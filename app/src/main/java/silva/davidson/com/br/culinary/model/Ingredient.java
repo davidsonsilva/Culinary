@@ -5,7 +5,6 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,17 +16,22 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         parentColumns = "id",
         childColumns = "recipeId",
         onDelete = CASCADE))
-
 public class Ingredient implements Parcelable{
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private int recipeId;
-    private Double quantity;
-    private String measure;
-    private String ingredient;
+@PrimaryKey(autoGenerate = true)
+private int id;
+private int recipeId;
+@SerializedName("quantity")
+@Expose
+private Double quantity;
+@SerializedName("measure")
+@Expose
+private String measure;
+@SerializedName("ingredient")
+@Expose
+private String ingredient;
 
-    public Ingredient() { }
+    public Ingredient(){}
 
     public int getId() {
         return id;
@@ -69,6 +73,30 @@ public class Ingredient implements Parcelable{
         this.ingredient = ingredient;
     }
 
+    protected Ingredient(Parcel in) {
+        id = in.readInt();
+        recipeId = in.readInt();
+        if (in.readByte() == 0) {
+            quantity = null;
+        } else {
+            quantity = in.readDouble();
+        }
+        measure = in.readString();
+        ingredient = in.readString();
+    }
+
+    public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
+        @Override
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
+        }
+
+        @Override
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -78,27 +106,13 @@ public class Ingredient implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeInt(recipeId);
-        dest.writeDouble(quantity);
+        if (quantity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(quantity);
+        }
         dest.writeString(measure);
         dest.writeString(ingredient);
     }
-
-    private Ingredient(Parcel in) {
-        id = in.readInt();
-        recipeId = in.readInt();
-        quantity = in.readDouble();
-        measure = in.readString();
-        ingredient = in.readString();
-    }
-
-    public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
-        @NonNull
-        public Ingredient createFromParcel(Parcel in) {
-            return new Ingredient(in);
-        }
-
-        public Ingredient[] newArray(int size) {
-            return new Ingredient[size];
-        }
-    };
 }

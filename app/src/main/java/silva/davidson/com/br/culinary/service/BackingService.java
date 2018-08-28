@@ -10,7 +10,7 @@ import silva.davidson.com.br.culinary.model.Recipe;
 
 public class BackingService {
 
-    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
 
     private static final OkHttpClient HTTP_CLIENT;
     static {
