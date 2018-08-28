@@ -7,12 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:progressDrawable="@color/ic_ingredients_background"
+        android:progressTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recipe_list"
+        app:layout_constraintStart_toStartOf="@+id/recipe_list"
+        app:layout_constraintTop_toTopOf="@+id/recipe_list" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_recipe">
+
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>
