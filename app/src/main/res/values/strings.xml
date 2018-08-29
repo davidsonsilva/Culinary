@@ -4,4 +4,10 @@
     <string name="steps_text">Steps</string>
     <string name="ingredients_text">Ingredients</string>
     <string name="culinary_splash_text">Culinary</string>
+
+    <!--Recipe Activity - TABS-->
+    <string-array name="tabs_title">
+        <item>Steps</item>
+        <item>Ingredients</item>
+    </string-array>
 </resources>
