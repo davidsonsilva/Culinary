@@ -18,9 +18,10 @@
         android:id="@+id/master_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.recipe)}"
-        app:cardElevation="6dp">
+        android:visibility="visible"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="2dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,13 +33,13 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="false"
                 android:alpha="0.5"
-                android:cropToPadding="false"
+                android:cropToPadding="true"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_nutela_pie_background"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,16:9"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,11 +62,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/backgroundColor"
                 android:fontFamily="cursive"
-                android:paddingStart="8dp"
                 android:paddingEnd="8dp"
+                android:paddingStart="8dp"
                 android:text="@={viewModel.recipe.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/text_primary"
@@ -77,64 +78,30 @@
                 tools:text="Nutela Pie" />
 
             <TextView
-                android:id="@+id/recipe_serve"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
-                android:text="@{viewModel.servingValue}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:layout_constraintBottom_toBottomOf="@+id/avatar_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/avatar_image"
-                app:layout_constraintTop_toBottomOf="@+id/recipe_title"
-                tools:text="Serve 8 persons" />
-
-            <TextView
                 android:id="@+id/textViewIngredients"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-smallcaps"
+                style="@style/TextViewRecipeDescription"
                 android:text="@string/ingredients_text"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/textViewSteps"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/avatar_image"
+                app:layout_constraintTop_toTopOf="@+id/textViewSteps"
                 tools:text="Ingredients" />
 
             <TextView
                 android:id="@+id/textViewSteps"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-smallcaps"
+                style="@style/TextViewRecipeDescription"
                 android:text="@string/steps_text"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/textViewServings"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textViewIngredients"
-                app:layout_constraintTop_toTopOf="@+id/textViewIngredients"
+                app:layout_constraintTop_toBottomOf="@+id/avatar_image"
                 tools:text="Steps" />
 
             <TextView
                 android:id="@+id/textViewServings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-smallcaps"
+                style="@style/TextViewRecipeDescription"
                 android:text="@string/servings_text"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textViewSteps"
@@ -143,74 +110,53 @@
 
             <ImageView
                 android:id="@+id/imageViewServing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                style="@style/RoundImageViewRecipe"
                 android:src="@mipmap/ic_serving_round"
                 app:layout_constraintEnd_toEndOf="@+id/textViewServings"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/textViewServings"
-                app:layout_constraintTop_toTopOf="@+id/imageViewSteps" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewServings" />
 
             <ImageView
                 android:id="@+id/imageViewIngredients"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:adjustViewBounds="false"
+                style="@style/RoundImageViewRecipe"
                 android:src="@mipmap/ic_ingredients_round"
                 app:layout_constraintEnd_toEndOf="@+id/textViewIngredients"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/textViewIngredients"
                 app:layout_constraintTop_toBottomOf="@+id/textViewIngredients" />
 
             <ImageView
                 android:id="@+id/imageViewSteps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
+                style="@style/RoundImageViewRecipe"
                 android:src="@mipmap/ic_chef_cooking_round"
-                app:layout_constraintEnd_toEndOf="@+id/textViewSteps"
+                app:layout_constraintEnd_toStartOf="@+id/textViewServings"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/textViewSteps"
-                app:layout_constraintTop_toTopOf="@+id/imageViewIngredients" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewSteps" />
 
             <TextView
                 android:id="@+id/textViewIngredientsValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                style="@style/TextViewRecipeValue"
                 android:text="@{viewModel.ingredientValue}"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewIngredients"
                 app:layout_constraintStart_toStartOf="@+id/imageViewIngredients"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewIngredients" />
 
             <TextView
                 android:id="@+id/textViewStepsValues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                style="@style/TextViewRecipeValue"
+                android:layout_marginBottom="24dp"
                 android:text="@{viewModel.stepsValue}"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewSteps"
                 app:layout_constraintStart_toStartOf="@+id/imageViewSteps"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewSteps" />
 
             <TextView
                 android:id="@+id/textViewServingValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                style="@style/TextViewRecipeValue"
                 android:text="@{viewModel.servingValue}"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewServing"
                 app:layout_constraintStart_toStartOf="@+id/imageViewServing"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewServing" />

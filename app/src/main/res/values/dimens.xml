@@ -6,4 +6,5 @@
     <dimen name="grid_info_text_size">14sp</dimen>
     <dimen name="image_padding">12dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="size_28">28sp</dimen>
 </resources>

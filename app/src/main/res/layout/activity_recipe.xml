@@ -41,18 +41,21 @@
                 android:id="@+id/recipe_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="@color/text_primary"
+                app:subtitleTextColor="@color/backgroundColor"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <android.support.design.widget.TabLayout
+            <android.support.design.widget.TabLayout
                 android:id="@+id/details_tab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMaxWidth="0dp"
+                style="@style/Theme.MyActionBarTab"
                 app:tabGravity="fill"
-                app:tabMode="fixed" />
+                app:tabIndicatorColor="@color/ic_steps_background"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabTextAppearance="@style/Theme.MyActionBarTabText" />
 
         </android.support.design.widget.AppBarLayout>
 

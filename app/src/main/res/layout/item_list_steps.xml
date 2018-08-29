@@ -12,11 +12,8 @@
 
     <LinearLayout
         android:id="@+id/step_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="16dp"
-        android:orientation="horizontal">
+        style="@style/ListStepsLayout"
+        android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.step)}">
 
         <TextView
             android:id="@+id/textViewId"
@@ -31,15 +28,8 @@
 
         <TextView
             android:id="@+id/textViewDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/backgroundColor"
-            android:fontFamily="cursive"
+            style="@style/TextViewListSteps"
             android:text="@={viewModel.step.shortDescription}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/text_primary"
-            android:textStyle="bold"
             tools:text="@string/text_view_description" />
     </LinearLayout>
 </layout>
