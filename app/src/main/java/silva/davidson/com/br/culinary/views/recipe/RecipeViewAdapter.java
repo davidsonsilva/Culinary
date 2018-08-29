@@ -1,6 +1,7 @@
 package silva.davidson.com.br.culinary.views.recipe;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.model.Recipe;
+import silva.davidson.com.br.culinary.views.steps.StepListFragment;
 
 public class RecipeViewAdapter extends FragmentPagerAdapter {
 
@@ -22,7 +24,25 @@ public class RecipeViewAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+        switch (position) {
+            case 0:
+                Bundle stepArguments = new Bundle();
+                stepArguments.putParcelableArrayList(
+                        StepListFragment.STEPS_RECORD, mRecipe.getSteps());
+                StepListFragment stepFragment =  new StepListFragment();
+                stepFragment.setArguments(stepArguments);
+                return stepFragment;
+            /*case 1:
+                Bundle ingredientArguments = new Bundle();
+                ingredientArguments.putParcelableArrayList(
+                        IngredientListFragment.BUNDLE_INGREDIENTS, mRecipe.getIngredients());
+                IngredientListFragment ingredientListFragment =  new IngredientListFragment();
+                ingredientListFragment.setArguments(ingredientArguments);
+                return ingredientListFragment;*/
+            default:
+                return new StepListFragment();
+        }
+        //return null;
     }
 
     @Override

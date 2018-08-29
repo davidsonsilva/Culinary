@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="silva.davidson.com.br.culinary.viewModel.RecipeViewModel"/>
+
+        <variable
+             name="eventHandler"
+             type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.RecipeRecycleViewAdapter.EventHandler&gt;" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -15,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
+        android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.recipe)}"
         app:cardElevation="6dp">
 
         <android.support.constraint.ConstraintLayout

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import silva.davidson.com.br.culinary.R;
@@ -20,9 +21,15 @@ public class RecipeRecycleViewAdapter extends RecyclerView.Adapter<RecipeRecycle
 
     private List<Recipe> recipeArrayList;
     private Application mContext;
+    private final WeakReference<EventHandler> mEventHandler;
 
-    public RecipeRecycleViewAdapter(Application context){
+    public interface EventHandler {
+        void onItemClick(Recipe recipe);
+    }
+
+    public RecipeRecycleViewAdapter(Application context, EventHandler eventHandler){
         mContext = context;
+        mEventHandler = new WeakReference<>(eventHandler);
     }
 
     public void setRecipes(List<Recipe> recipes) {
@@ -36,6 +43,7 @@ public class RecipeRecycleViewAdapter extends RecyclerView.Adapter<RecipeRecycle
         ItemRecipeBinding mRecipeBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(viewGroup.getContext()),
                 R.layout.item_recipe, viewGroup, false);
+        mRecipeBinding.setEventHandler(mEventHandler);
         return new ViewHolder(mRecipeBinding);
     }
 

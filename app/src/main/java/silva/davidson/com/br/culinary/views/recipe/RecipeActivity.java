@@ -1,4 +1,4 @@
-package silva.davidson.com.br.culinary.views;
+package silva.davidson.com.br.culinary.views.recipe;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.databinding.ActivityRecipeBinding;
 import silva.davidson.com.br.culinary.model.Recipe;
-import silva.davidson.com.br.culinary.views.recipe.RecipeViewAdapter;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -37,10 +36,31 @@ public class RecipeActivity extends AppCompatActivity {
 
             setupActionBar();
 
+            putBackGroundImage();
+
         } else {
             finish();
         }
 
+    }
+
+    private void putBackGroundImage() {
+        switch (mRecipe.getName()) {
+            case "Nutella Pie":
+                mBinding.recipeImage.setImageResource(R.mipmap.ic_nutela_pie_foreground);
+                break;
+            case "Brownies":
+                mBinding.recipeImage.setImageResource(R.mipmap.ic_brownies_foreground);
+                break;
+            case "Yellow Cake":
+                mBinding.recipeImage.setImageResource(R.mipmap.ic_yellow_cake_foreground);
+                break;
+            case "Cheesecake":
+                mBinding.recipeImage.setImageResource(R.mipmap.ic_cheesecake_foreground);
+                break;
+            default : mBinding.recipeImage.setImageResource(R.mipmap.ic_cheesecake_foreground);
+                break;
+        }
     }
 
     private void setupActionBar() {

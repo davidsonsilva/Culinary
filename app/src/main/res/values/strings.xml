@@ -4,6 +4,8 @@
     <string name="steps_text">Steps</string>
     <string name="ingredients_text">Ingredients</string>
     <string name="culinary_splash_text">Culinary</string>
+    <string name="text_view_description">Recipe Introduction</string>
+    <string name="text_view_id">0</string>
 
     <!--Recipe Activity - TABS-->
     <string-array name="tabs_title">

@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,11 +25,11 @@ private String name;
 @SerializedName("ingredients")
 @Expose
 @Ignore
-private List<Ingredient> ingredients = null;
+private ArrayList<Ingredient> ingredients = null;
 @SerializedName("steps")
 @Expose
 @Ignore
-private List<Step> steps = null;
+private ArrayList<Step> steps = null;
 @SerializedName("servings")
 @Expose
 private Integer servings;
@@ -83,19 +84,19 @@ public void setName(String name) {
 this.name = name;
 }
 
-public List<Ingredient> getIngredients() {
+public ArrayList<Ingredient> getIngredients() {
 return ingredients;
 }
 
-public void setIngredients(List<Ingredient> ingredients) {
+public void setIngredients(ArrayList<Ingredient> ingredients) {
 this.ingredients = ingredients;
 }
 
-public List<Step> getSteps() {
+public ArrayList<Step> getSteps() {
 return steps;
 }
 
-public void setSteps(List<Step> steps) {
+public void setSteps(ArrayList<Step> steps) {
 this.steps = steps;
 }
 

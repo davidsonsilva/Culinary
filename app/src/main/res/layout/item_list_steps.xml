@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <data>
+        <variable
+            name="viewModel"
+            type="silva.davidson.com.br.culinary.viewModel.StepsViewModel"/>
+        <variable
+            name="eventHandler"
+            type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.StepRecyclerViewAdapter.EventHandler&gt;" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/step_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewId"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.stepId}"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold"
+            tools:text="@string/text_view_id" />
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/backgroundColor"
+            android:fontFamily="cursive"
+            android:text="@={viewModel.step.shortDescription}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold"
+            tools:text="@string/text_view_description" />
+    </LinearLayout>
+</layout>

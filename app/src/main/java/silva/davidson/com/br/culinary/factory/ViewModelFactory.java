@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import silva.davidson.com.br.culinary.db.CulinaryDataBase;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
+import silva.davidson.com.br.culinary.viewModel.StepsViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
@@ -37,7 +38,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(RecipeViewModel.class)) {
             return (T) new RecipeViewModel(mApplication, mdb);
+        } else if (modelClass.isAssignableFrom(StepsViewModel.class)) {
+            return (T) new StepsViewModel(mApplication);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
 }
+
