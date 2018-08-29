@@ -2,28 +2,19 @@ package silva.davidson.com.br.culinary.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import silva.davidson.com.br.culinary.R;
-import silva.davidson.com.br.culinary.adapter.RecipeRecycleViewAdapter;
 import silva.davidson.com.br.culinary.db.CulinaryDataBase;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.service.BackingService;
-import silva.davidson.com.br.culinary.utils.VectorDrawableUtils;
 
 public class RecipeViewModel extends AndroidViewModel {
 
