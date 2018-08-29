@@ -55,6 +55,7 @@
                 app:tabIndicatorColor="@color/ic_steps_background"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/cardview_light_background"
                 app:tabTextAppearance="@style/Theme.MyActionBarTabText" />
 
         </android.support.design.widget.AppBarLayout>
