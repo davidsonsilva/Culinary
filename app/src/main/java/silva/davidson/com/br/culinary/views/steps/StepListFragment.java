@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,10 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps, container,
+                false);
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity().getApplication());
         mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
@@ -74,8 +77,12 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
     @Override
     public void onItemClick(Step step) {
+        Snackbar snackbar =
         Snackbar.make(mBinding.getRoot(),
-                "Steps selected :" + step.getShortDescription(), Snackbar.LENGTH_LONG).show();
+                "Steps selected :" + step.getShortDescription(), Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
+        .setTextColor(getResources().getColor(android.R.color.white));
+        snackbar.show();
     }
 
 }

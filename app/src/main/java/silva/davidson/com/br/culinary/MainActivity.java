@@ -10,17 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import silva.davidson.com.br.culinary.adapter.RecipeRecycleViewAdapter;
+import silva.davidson.com.br.culinary.adapter.RecipeRecyclerViewAdapter;
 import silva.davidson.com.br.culinary.databinding.ActivityMainBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
 
-public class MainActivity extends AppCompatActivity implements RecipeRecycleViewAdapter.EventHandler {
+public class MainActivity extends AppCompatActivity implements RecipeRecyclerViewAdapter.EventHandler {
 
     private ActivityMainBinding mMainBinding;
-    private RecipeRecycleViewAdapter adapter;
+    private RecipeRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecycleView
         viewModel.getRecipeMutableLiveData().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Recipe> recipes) {
-                adapter = new RecipeRecycleViewAdapter(getApplication(),
+                adapter = new RecipeRecyclerViewAdapter(getApplication(),
                         MainActivity.this);
                 adapter.setRecipes(recipes);
                 mMainBinding.recipeList.setAdapter(adapter);

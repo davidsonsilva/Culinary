@@ -11,7 +11,7 @@
 
         <variable
              name="eventHandler"
-             type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.RecipeRecycleViewAdapter.EventHandler&gt;" />
+             type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.RecipeRecyclerViewAdapter.EventHandler&gt;"/>
     </data>
 
     <android.support.v7.widget.CardView
