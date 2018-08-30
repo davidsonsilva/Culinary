@@ -25,4 +25,8 @@ public class IngredientsViewModel extends AndroidViewModel {
     public MutableLiveData<List<Ingredient>> getIngredientsList() {
         return mIngredientsList;
     }
+
+    public String getQuantityValue(){
+        return mIngredients.getValue().getQuantity().toString();
+    }
 }

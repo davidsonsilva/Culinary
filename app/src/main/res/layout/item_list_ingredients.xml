@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <data>
         <variable
@@ -12,24 +13,59 @@
         style="@style/ListStepsLayout">
 
         <ImageView
+            android:id="@+id/imgViewMeasure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_avatar_40dp"/>
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_avatar_40dp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewMeasure"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
         <TextView
-            android:id="@+id/textViewId"
-            android:layout_width="60dp"
+            android:id="@+id/textViewIngredient"
+            style="@style/TextViewListSteps"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@={viewModel.ingredients.ingredient}"
+            app:layout_constraintBottom_toTopOf="@+id/imgViewMeasure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgViewMeasure"
+            app:layout_constraintTop_toTopOf="@+id/textViewMeasure"
+            tools:text="Nutella or other chocolate-hazelnut spread" />
+
+        <TextView
+            android:id="@+id/textViewMeasure"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@={viewModel.ingredients.measure}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewMeasure"
+            app:layout_constraintStart_toEndOf="@+id/imgViewMeasure"
+            tools:text="quantity" />
+
+        <TextView
+            android:id="@+id/textViewQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:text="@{viewModel.quantityValue}"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/text_primary"
             android:textStyle="bold"
-            tools:text="@string/text_view_id" />
+            app:layout_constraintEnd_toStartOf="@+id/imgViewMeasure"
+            app:layout_constraintStart_toEndOf="@+id/imgViewMeasure"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="quantity" />
 
-        <TextView
-            android:id="@+id/textViewDescription"
-            style="@style/TextViewListSteps"
-            tools:text="@string/text_view_description" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>
 
