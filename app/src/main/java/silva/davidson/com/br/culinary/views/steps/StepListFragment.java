@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -83,6 +84,15 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
         ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
         .setTextColor(getResources().getColor(android.R.color.white));
         snackbar.show();
+
+        startStepDetailActivity(step);
+    }
+
+    private void startStepDetailActivity(Step step){
+        Bundle extras = new Bundle();
+        extras.putParcelableArrayList(StepsDetailsActivity.STEPS_RECORD, mSteps);
+        extras.putParcelable(StepsDetailsActivity.STEP_SELECTED, step);
+        StepsDetailsActivity.startActivity((AppCompatActivity) getActivity(), extras);
     }
 
 }

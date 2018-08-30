@@ -68,7 +68,3 @@
 
     </android.support.constraint.ConstraintLayout>
 </layout>
-
-    <!--"quantity": 1.5,
-    "measure": "TSP",
-    "ingredient": "salt"-->
