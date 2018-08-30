@@ -16,32 +16,46 @@ public class RecipeActivity extends AppCompatActivity {
     public static final String RECIPE_RECORD =  RecipeActivity.class.getName().concat(".RECIPE_RECORD");
     private ActivityRecipeBinding mBinding;
     private Recipe mRecipe;
+    private RecipeViewAdapter mAdapter;
 
     public static void startActivity(AppCompatActivity activity, Bundle extras) {
         activity.startActivity(new Intent(activity, RecipeActivity.class).putExtras(extras));
     }
 
+    public static void startActivity(AppCompatActivity activity) {
+        activity.startActivity(new Intent(activity, RecipeActivity.class));
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe);
         setSupportActionBar(mBinding.recipeToolbar);
         mBinding.recipeToolbar.setTitleTextColor(getResources().getColor(R.color.text_primary));
 
-        if(getIntent().getExtras() != null && getIntent().hasExtra(RECIPE_RECORD)){
+
+        if (savedInstanceState != null) {
+            mRecipe = savedInstanceState.getParcelable(RECIPE_RECORD);
+            setupDefaultValues();
+        } else if(getIntent().getExtras() != null && getIntent().hasExtra(RECIPE_RECORD)) {
             mRecipe = getIntent().getParcelableExtra(RECIPE_RECORD);
-            mBinding.detailsPager.setAdapter(new RecipeViewAdapter(getSupportFragmentManager(),
-                    this, mRecipe));
-            mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
-
-            setupActionBar();
-
-            putBackGroundImage();
-
+            setupDefaultValues();
         } else {
             finish();
         }
+    }
 
+    private void setupDefaultValues() {
+
+        mAdapter = new RecipeViewAdapter(getSupportFragmentManager(),
+                this, mRecipe);
+        mBinding.detailsPager.setAdapter(mAdapter);
+        mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
+
+        putBackGroundImage();
+
+        setupActionBar();
     }
 
     private void putBackGroundImage() {
@@ -79,5 +93,11 @@ public class RecipeActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECIPE_RECORD, mRecipe);
     }
 }

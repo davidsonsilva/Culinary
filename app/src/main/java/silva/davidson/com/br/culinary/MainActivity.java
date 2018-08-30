@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -15,12 +16,14 @@ import silva.davidson.com.br.culinary.databinding.ActivityMainBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
+import silva.davidson.com.br.culinary.viewModel.StepsViewModel;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
 
 public class MainActivity extends AppCompatActivity implements RecipeRecyclerViewAdapter.EventHandler {
 
     private ActivityMainBinding mMainBinding;
     private RecipeRecyclerViewAdapter adapter;
+    private RecipeViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         mMainBinding.mainToolbar.setTitleTextColor(getResources().getColor(R.color.text_primary));
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
-        RecipeViewModel viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
+        viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
 
         viewModel.loadRecipes();
 
@@ -49,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     @Override
     public void onItemClick(Recipe recipe) {
-        Snackbar.make(mMainBinding.mainContainer,
-                " Recipe selected : " + recipe.getName(), Snackbar.LENGTH_LONG).show();
         openRecipeActivityWithBundleValue(recipe);
     }
 

@@ -23,7 +23,6 @@ public class StepsDetailsActivity extends AppCompatActivity {
     public static final String STEP_SELECTED =  StepsDetailsActivity.class.getName().concat(".STEP_SELECTED");
     private static final String FRAGMENT_PAGE = StepsDetailsActivity.class.getName();
 
-    //private FragmentStepsDetailBinding mBinding;
     private StepsViewModel mViewModel;
     private ActivityStepDetailBinding mBinding;
     private StepDetailFragment mStepDetailFragment;
@@ -43,26 +42,33 @@ public class StepsDetailsActivity extends AppCompatActivity {
         ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
         mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         if (getIntent().getExtras() != null
                 && getIntent().hasExtra(STEPS_RECORD)
                 && getIntent().hasExtra(STEP_SELECTED)) {
-
-            //FIXME: Acho que isso não é necessário
-            ArrayList<Step> steps = getIntent().getParcelableArrayListExtra(STEPS_RECORD);
-
-            mViewModel.getCurrentStep().setValue((Step)getIntent().getParcelableExtra(STEP_SELECTED));
 
             if (savedInstanceState != null && savedInstanceState.containsKey(FRAGMENT_PAGE)) {
                 mStepDetailFragment = (StepDetailFragment) getSupportFragmentManager()
                         .getFragment(savedInstanceState, FRAGMENT_PAGE);
             }
+
+            ArrayList<Step> steps = getIntent().getParcelableArrayListExtra(STEPS_RECORD);
+
+            mViewModel.getCurrentStep().setValue((Step)getIntent().getParcelableExtra(STEP_SELECTED));
+
+            setupActionBar();
+
             setupFragment();
+
+            mBinding.setLifecycleOwner(this);
+
         } else {
             finish();
+        }
+    }
+
+    private void setupActionBar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -89,7 +95,4 @@ public class StepsDetailsActivity extends AppCompatActivity {
         return ViewModelProviders.of(activity, factory).get(StepsViewModel.class);
     }
 
-/*    private Step findStepById(Integer id) {
-        return mViewModel.getStepById(id);
-    }*/
 }
