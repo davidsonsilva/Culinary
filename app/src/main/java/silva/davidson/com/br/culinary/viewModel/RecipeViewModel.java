@@ -29,6 +29,7 @@ public class RecipeViewModel extends AndroidViewModel {
     public RecipeViewModel(Application mApplication, CulinaryDataBase db) {
         super(mApplication);
         mdb = db;
+        loadRecipes();
     }
 
     public void loadRecipes() {

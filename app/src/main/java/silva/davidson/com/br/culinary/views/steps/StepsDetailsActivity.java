@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -23,10 +24,7 @@ public class StepsDetailsActivity extends AppCompatActivity {
     public static final String STEP_SELECTED =  StepsDetailsActivity.class.getName().concat(".STEP_SELECTED");
     private static final String FRAGMENT_PAGE = StepsDetailsActivity.class.getName();
 
-    private StepsViewModel mViewModel;
-    private ActivityStepDetailBinding mBinding;
     private StepDetailFragment mStepDetailFragment;
-
 
     public static void startActivity(AppCompatActivity activity, Bundle extras) {
         activity.startActivity(new Intent(activity, StepsDetailsActivity.class).putExtras(extras));
@@ -35,12 +33,16 @@ public class StepsDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
+        ActivityStepDetailBinding mBinding = DataBindingUtil.setContentView(
+                this, R.layout.activity_step_detail);
         setSupportActionBar(mBinding.toolbarStepDetail);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
-        mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
+        final StepsViewModel mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
 
         if (getIntent().getExtras() != null
                 && getIntent().hasExtra(STEPS_RECORD)
@@ -55,8 +57,6 @@ public class StepsDetailsActivity extends AppCompatActivity {
 
             mViewModel.getCurrentStep().setValue((Step)getIntent().getParcelableExtra(STEP_SELECTED));
 
-            setupActionBar();
-
             setupFragment();
 
             mBinding.setLifecycleOwner(this);
@@ -66,9 +66,14 @@ public class StepsDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void setupActionBar() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

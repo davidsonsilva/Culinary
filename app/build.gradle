@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "silva.davidson.com.br.culinary"
         minSdkVersion 21
@@ -30,6 +31,7 @@ ext {
     retrofit = '2.4.0'
     exoplayer = '2.7.1'
     glide = '4.8.0'
+    okhttp = '2.7.2'
 }
 
 dependencies {
@@ -51,6 +53,8 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    //okhttp
+    implementation "com.squareup.okhttp:okhttp:$okhttp"
     //ExoPlayer
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer"
     //Glide

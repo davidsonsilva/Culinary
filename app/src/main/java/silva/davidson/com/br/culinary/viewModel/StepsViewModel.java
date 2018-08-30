@@ -126,4 +126,8 @@ public class StepsViewModel extends AndroidViewModel {
         }
         return null;
     }
+
+    public void setPlayerLifeCycle(PlayerLifeCycle mPlayerLifeCycle) {
+        StepsViewModel.mPlayerLifeCycle = mPlayerLifeCycle;
+    }
 }

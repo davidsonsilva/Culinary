@@ -56,6 +56,10 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
+        mBinding.setViewModel(mViewModel);
+        mViewModel.setPlayerLifeCycle(this);
+
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_SELECTED)) {
                 mCurrentStep = savedInstanceState.getParcelable(STEP_SELECTED);
@@ -66,8 +70,6 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
             }
         }
 
-        mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
-        mBinding.setViewModel(mViewModel);
         setupToolbar();
     }
 
@@ -93,12 +95,6 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     public void onDetach() {
         super.onDetach();
         releasePlayer();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
     }
 
     @Override

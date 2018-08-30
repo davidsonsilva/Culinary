@@ -55,4 +55,9 @@ public class RecipeViewAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titlesTabs[position];
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
 }
