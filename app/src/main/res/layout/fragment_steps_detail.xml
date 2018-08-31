@@ -11,6 +11,9 @@
             name="viewModel"
             type="silva.davidson.com.br.culinary.viewModel.StepsViewModel"/>
         <variable
+            name="orientationLandscape"
+            type="boolean" />
+        <variable
             name="eventHandler"
             type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.StepRecyclerViewAdapter.EventHandler&gt;" />
     </data>
@@ -27,14 +30,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:resize_mode="fixed_width"
+            app:resize_mode="fixed_height"
             android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
             app:videoUrl="@{viewModel.currentStep.videoURL}"/>
 
         <ImageView
             android:id="@+id/imageViewThumbs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"

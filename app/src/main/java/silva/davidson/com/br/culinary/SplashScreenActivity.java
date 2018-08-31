@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashScreenActivity extends AppCompatActivity {
+import silva.davidson.com.br.culinary.views.BaseActivity;
+
+public class SplashScreenActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void showMainActivity() {
-        Intent intent = new Intent(SplashScreenActivity.this,
-                MainActivity.class);
-        startActivity(intent);
+        MainActivity.startActivity(this);
         finish();
     }
 }

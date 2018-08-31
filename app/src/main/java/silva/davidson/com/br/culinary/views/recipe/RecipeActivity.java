@@ -1,21 +1,17 @@
 package silva.davidson.com.br.culinary.views.recipe;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.databinding.ActivityRecipeBinding;
-import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
-import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
+import silva.davidson.com.br.culinary.views.BaseActivity;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends BaseActivity {
 
     public static final String RECIPE_RECORD =  RecipeActivity.class.getName().concat(".RECIPE_RECORD");
     private ActivityRecipeBinding mBinding;
@@ -23,12 +19,8 @@ public class RecipeActivity extends AppCompatActivity {
     private RecipeViewAdapter mAdapter;
 
 
-    public static void startActivity(AppCompatActivity activity, Bundle extras) {
+    public static void startActivity(BaseActivity activity, Bundle extras) {
         activity.startActivity(new Intent(activity, RecipeActivity.class).putExtras(extras));
-    }
-
-    public static void startActivity(AppCompatActivity activity) {
-        activity.startActivity(new Intent(activity, RecipeActivity.class));
     }
 
     @Override
@@ -39,30 +31,17 @@ public class RecipeActivity extends AppCompatActivity {
         setSupportActionBar(mBinding.recipeToolbar);
         mBinding.recipeToolbar.setTitleTextColor(getResources().getColor(R.color.text_primary));
 
-        final ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
-        final RecipeViewModel viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
-
-        viewModel.getRecipe().observe(this, new Observer<Recipe>() {
-            @Override
-            public void onChanged(@Nullable Recipe recipe) {
-                if(recipe != null) {
-                    mRecipe = recipe;
-                    mBinding.detailsPager.setAdapter(new RecipeViewAdapter(getSupportFragmentManager(),
-                            RecipeActivity.this, mRecipe));
-                    mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
-
-                    setupActionBar();
-
-                    putBackGroundImage();
-                } else {
-                    finish();
-                }
-            }
-        });
-
         if(getIntent().getExtras() != null && getIntent().hasExtra(RECIPE_RECORD)) {
             mRecipe = getIntent().getParcelableExtra(RECIPE_RECORD);
-            viewModel.getRecipe().setValue(mRecipe);
+            mBinding.detailsPager.setAdapter(new RecipeViewAdapter(getSupportFragmentManager(),
+                    RecipeActivity.this, mRecipe));
+            mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
+
+            setupActionBar();
+
+            putBackGroundImage();
+        } else {
+            finish();
         }
 
     }

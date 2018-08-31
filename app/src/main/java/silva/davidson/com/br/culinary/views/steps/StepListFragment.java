@@ -25,6 +25,7 @@ import silva.davidson.com.br.culinary.databinding.FragmentStepsBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Step;
 import silva.davidson.com.br.culinary.viewModel.StepsViewModel;
+import silva.davidson.com.br.culinary.views.BaseActivity;
 
 public class StepListFragment extends Fragment implements StepRecyclerViewAdapter.EventHandler {
 
@@ -92,7 +93,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
         Bundle extras = new Bundle();
         extras.putParcelableArrayList(StepsDetailsActivity.STEPS_RECORD, mSteps);
         extras.putParcelable(StepsDetailsActivity.STEP_SELECTED, step);
-        StepsDetailsActivity.startActivity((AppCompatActivity) getActivity(), extras);
+        StepsDetailsActivity.startActivity((BaseActivity) getActivity(), extras);
     }
 
 }

@@ -17,8 +17,9 @@ import silva.davidson.com.br.culinary.databinding.ActivityStepDetailBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Step;
 import silva.davidson.com.br.culinary.viewModel.StepsViewModel;
+import silva.davidson.com.br.culinary.views.BaseActivity;
 
-public class StepsDetailsActivity extends AppCompatActivity {
+public class StepsDetailsActivity extends BaseActivity {
 
     public static final String STEPS_RECORD =  StepsDetailsActivity.class.getName().concat(".STEP_RECORD");
     public static final String STEP_SELECTED =  StepsDetailsActivity.class.getName().concat(".STEP_SELECTED");
@@ -26,7 +27,7 @@ public class StepsDetailsActivity extends AppCompatActivity {
 
     private StepDetailFragment mStepDetailFragment;
 
-    public static void startActivity(AppCompatActivity activity, Bundle extras) {
+    public static void startActivity(BaseActivity activity, Bundle extras) {
         activity.startActivity(new Intent(activity, StepsDetailsActivity.class).putExtras(extras));
     }
 

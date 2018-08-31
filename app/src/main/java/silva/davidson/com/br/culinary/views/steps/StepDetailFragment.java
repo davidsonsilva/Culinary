@@ -1,6 +1,10 @@
 package silva.davidson.com.br.culinary.views.steps;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -20,6 +25,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.databinding.FragmentStepsDetailBinding;
@@ -207,4 +213,16 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
         }
         mExoPlayer = null;
     }
+
+/*    @BindingAdapter("layout_height")
+    public static void setLayoutHeight(View view, boolean orientationLandscape) {
+        view.getLayoutParams().height = orientationLandscape ? RelativeLayout.LayoutParams.MATCH_PARENT : 600;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBinding.setOrientationLandscape(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    }*/
+
 }
