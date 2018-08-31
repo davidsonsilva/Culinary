@@ -66,6 +66,13 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
         mBinding.setViewModel(mViewModel);
         mViewModel.setPlayerLifeCycle(this);
 
+        if (getArguments() != null) {
+            if (getArguments().containsKey(STEP_SELECTED)) {
+                mCurrentStep = getArguments().getParcelable(STEP_SELECTED);
+                mViewModel.getCurrentStep().setValue(mCurrentStep);
+            }
+        }
+
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_SELECTED)) {
                 mCurrentStep = savedInstanceState.getParcelable(STEP_SELECTED);

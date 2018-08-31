@@ -146,9 +146,7 @@
             <TextView
                 android:id="@+id/textViewStepsValues"
                 style="@style/TextViewRecipeValue"
-                android:layout_marginBottom="24dp"
                 android:text="@{viewModel.stepsValue}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewSteps"
                 app:layout_constraintStart_toStartOf="@+id/imageViewSteps"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewSteps" />

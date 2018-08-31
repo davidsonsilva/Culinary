@@ -11,9 +11,6 @@
             name="viewModel"
             type="silva.davidson.com.br.culinary.viewModel.StepsViewModel"/>
         <variable
-            name="orientationLandscape"
-            type="boolean" />
-        <variable
             name="eventHandler"
             type="java.lang.ref.WeakReference&lt;silva.davidson.com.br.culinary.adapter.StepRecyclerViewAdapter.EventHandler&gt;" />
     </data>

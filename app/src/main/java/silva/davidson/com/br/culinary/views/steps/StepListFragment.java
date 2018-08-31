@@ -36,7 +36,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
     private StepRecyclerViewAdapter mAdapter;
     private FragmentStepsBinding mBinding;
     private StepsViewModel mViewModel;
-    //private boolean isTabletView;
+    private boolean isRuningOnTabletView;
 
     @Nullable
     @Override
@@ -47,7 +47,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity().getApplication());
         mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
-
+        isRuningOnTabletView = mBinding.getRoot().findViewById(R.id.container_step_detail) != null;
         if (mSteps != null && getContext() != null) {
             mBinding.include.stepList.setLayoutManager(new LinearLayoutManager(getActivity()));
             mBinding.include.stepList.addItemDecoration(
@@ -79,21 +79,37 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
     @Override
     public void onItemClick(Step step) {
+/*
         Snackbar snackbar =
         Snackbar.make(mBinding.getRoot(),
                 "Steps selected :" + step.getShortDescription(), Snackbar.LENGTH_LONG);
         ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
         .setTextColor(getResources().getColor(android.R.color.white));
         snackbar.show();
+*/
 
         startStepDetailActivity(step);
     }
 
     private void startStepDetailActivity(Step step){
-        Bundle extras = new Bundle();
-        extras.putParcelableArrayList(StepsDetailsActivity.STEPS_RECORD, mSteps);
-        extras.putParcelable(StepsDetailsActivity.STEP_SELECTED, step);
-        StepsDetailsActivity.startActivity((BaseActivity) getActivity(), extras);
+
+        if (isRuningOnTabletView) {
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(StepDetailFragment.STEP_SELECTED, step);
+            StepDetailFragment fragment =  new StepDetailFragment();
+            fragment.setArguments(arguments);
+            if (getFragmentManager() != null) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container_step_detail, fragment)
+                        .commit();
+            }
+        } else {
+
+            Bundle extras = new Bundle();
+            extras.putParcelableArrayList(StepsDetailsActivity.STEPS_RECORD, mSteps);
+            extras.putParcelable(StepsDetailsActivity.STEP_SELECTED, step);
+            StepsDetailsActivity.startActivity((BaseActivity) getActivity(), extras);
+        }
     }
 
 }

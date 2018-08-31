@@ -3,10 +3,12 @@ package silva.davidson.com.br.culinary;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,14 +23,15 @@ import silva.davidson.com.br.culinary.views.BaseActivity;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
 
 public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdapter.EventHandler
-        , View.OnClickListener{
+        , View.OnClickListener
+        , RecipeViewModel.LoadRecipeCallBack {
 
     private static final String STATE_RECIPE = MainActivity.class.getName().concat(".STATE_RECIPE");
 
     private ActivityMainBinding mMainBinding;
     private RecipeRecyclerViewAdapter adapter;
-    private RecipeViewModel viewModel;
     private ArrayList<Recipe> mRecipes;
+    private RecipeViewModel viewModel;
 
     public static void startActivity(BaseActivity activity) {
         activity.startActivity(
@@ -40,20 +43,44 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
-
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mMainBinding.mainToolbar);
+
+        int spanCount = 1;
+        if (getResources().getBoolean(R.bool.isRuningOnTablet)) {
+            spanCount = 3;
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 2;
+        }
+
+        mMainBinding.recipeList.setLayoutManager(new GridLayoutManager(this, spanCount));
         mMainBinding.mainToolbar.setLogo(R.mipmap.ic_culinary);
         mMainBinding.mainToolbar.setTitleTextColor(getResources().getColor(R.color.text_primary));
-
         mMainBinding.progressBar.setVisibility(View.VISIBLE);
+
+        if (isDeviceConnected()) {
+
+            setupViewModel();
+
+            if (savedInstanceState != null && savedInstanceState.containsKey(STATE_RECIPE)) {
+                mRecipes = savedInstanceState.getParcelableArrayList(STATE_RECIPE);
+                viewModel.getRecipeMutableLiveData().setValue(mRecipes);
+            }
+
+        } else {
+            showError();
+        }
+    }
+
+    private void setupViewModel() {
+        final ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
+        viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
 
         viewModel.getRecipeMutableLiveData().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Recipe> recipes) {
-                if(recipes != null && !recipes.isEmpty()){
+                if (recipes != null && !recipes.isEmpty()) {
+                    mRecipes = recipes;
                     adapter = new RecipeRecyclerViewAdapter(getApplication(),
                             MainActivity.this);
                     adapter.setRecipes(recipes);
@@ -62,11 +89,6 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
                 }
             }
         });
-
-        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_RECIPE)) {
-            mRecipes = savedInstanceState.getParcelableArrayList(STATE_RECIPE);
-            adapter.setRecipes(mRecipes);
-        }
     }
 
     @Override
@@ -87,16 +109,43 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
     }
 
     private void showError() {
+        mMainBinding.progressBar.setVisibility(View.GONE);
+        mMainBinding.imageViewError.setVisibility(View.VISIBLE);
+
         Snackbar error = Snackbar.make(
                 mMainBinding.mainContainer,
                 R.string.conection_error,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.error_main_connection_action, this);
         ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
-                .setTextColor(getResources().getColor(android.R.color.white));    }
+                .setTextColor(getResources().getColor(android.R.color.white));
+
+        error.show();
+    }
 
     @Override
     public void onClick(View v) {
+        if (isDeviceConnected()) {
+            setupViewModel();
+            mMainBinding.imageViewError.setVisibility(View.GONE);
+        } else {
+            showError();
+        }
+    }
 
+    @Override
+    public void onError(Throwable t) {
+        mMainBinding.progressBar.setVisibility(View.GONE);
+        mMainBinding.imageViewError.setVisibility(View.VISIBLE);
+        mMainBinding.imageViewError.setImageDrawable(
+                getResources().getDrawable(R.drawable.ic_chef_cooking_foreground));
+        Snackbar error = Snackbar.make(
+                mMainBinding.mainContainer,
+                t.getMessage(),
+                Snackbar.LENGTH_LONG)
+                .setAction(R.string.error_main_connection_action, this);
+        ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
+                .setTextColor(getResources().getColor(android.R.color.holo_red_light));
+        error.show();
     }
 }

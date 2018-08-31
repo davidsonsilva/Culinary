@@ -18,9 +18,14 @@ import silva.davidson.com.br.culinary.service.BackingService;
 
 public class RecipeViewModel extends AndroidViewModel {
 
+    public interface LoadRecipeCallBack {
+        void onError(Throwable t);
+    }
+
     private static CulinaryDataBase mdb;
     private MutableLiveData<ArrayList<Recipe>> mRecipeMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Recipe> mRecipe = new MutableLiveData<>();
+    private LoadRecipeCallBack loadRecipeCallBack;
 
     private RecipeViewModel(@NonNull Application application) {
         super(application);
@@ -35,18 +40,25 @@ public class RecipeViewModel extends AndroidViewModel {
     public void loadRecipes() {
         BackingService.getClient().listRecipes().enqueue(new Callback<ArrayList<Recipe>>() {
                     @Override
-                    public void onResponse(@NonNull Call<ArrayList<Recipe>> call, @NonNull Response<ArrayList<Recipe>> response) {
+                    public void onResponse(@NonNull Call<ArrayList<Recipe>> call,
+                                           @NonNull Response<ArrayList<Recipe>> response) {
                         if (response.isSuccessful()) {
                             mRecipeMutableLiveData.postValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<ArrayList<Recipe>> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<ArrayList<Recipe>> call,
+                                          @NonNull Throwable t) {
                         Log.i("loadRecipes", t.getLocalizedMessage());
+                        loadRecipeCallBack.onError(t);
                     }
                 });
-     }
+    }
+
+    public void setLoadRecipeCallBack(LoadRecipeCallBack loadRecipeCallBack) {
+        this.loadRecipeCallBack = loadRecipeCallBack;
+    }
 
     public MutableLiveData<ArrayList<Recipe>> getRecipeMutableLiveData() {
         return mRecipeMutableLiveData;
