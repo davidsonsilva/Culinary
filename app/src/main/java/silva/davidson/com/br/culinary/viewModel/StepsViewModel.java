@@ -8,6 +8,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -27,13 +28,23 @@ import silva.davidson.com.br.culinary.utils.ImageHelper;
 
 public class StepsViewModel extends AndroidViewModel {
 
+    public interface StepsEventHandler {
+        void nextPositionClick();
+        void previousPositionClick();
+    }
+
     private static final String APPLICATION_ID = "silva.davidson.com.br.culinary";
     private static PlayerLifeCycle mPlayerLifeCycle;
 
+    @Nullable
+    private StepsEventHandler stepsEventHandler;
+
     private MutableLiveData<List<Step>> mStepList = new MutableLiveData<>();
+
     private MutableLiveData<Step> mStep = new MutableLiveData<>();
 
-    private MutableLiveData<Integer> mStepSelectedId = new MutableLiveData<>();
+    private int mStepSelectedId;
+
     private MutableLiveData<Step> mCurrentStep = new MutableLiveData<>();
 
     public StepsViewModel(@NonNull Application application) {
@@ -50,10 +61,6 @@ public class StepsViewModel extends AndroidViewModel {
 
     public String getStepId(){
         return getStep().getValue().getId().toString();
-    }
-
-    public MutableLiveData<Integer> getStepSelectedId() {
-        return mStepSelectedId;
     }
 
     public MutableLiveData<Step> getCurrentStep() {
@@ -99,6 +106,10 @@ public class StepsViewModel extends AndroidViewModel {
         void onSetupPlayer(SimpleExoPlayer exoPlayer);
     }
 
+    /**
+     * Verifica se existe dados de thumbnail no registro
+     * @return boolean
+     */
     public boolean isHasThumbnail() {
         if (getCurrentStep().getValue() != null) {
             return !isHasVideo() && getCurrentStep().getValue().getThumbnailURL() != null
@@ -108,7 +119,10 @@ public class StepsViewModel extends AndroidViewModel {
         return false;
     }
 
-
+    /**
+     * Verifica se existe link de vídeo na receita
+     * @return boolean
+     */
     public boolean isHasVideo() {
         if (getCurrentStep().getValue() != null) {
             return getCurrentStep().getValue().getVideoURL() != null &&
@@ -117,16 +131,43 @@ public class StepsViewModel extends AndroidViewModel {
         return false;
     }
 
-    public static Step getStepById(List<Step> steps, int stepId) {
-        for (Step step : steps) {
-            if (step.getId() == stepId) {
-                return step;
-            }
-        }
-        return null;
-    }
-
     public void setPlayerLifeCycle(PlayerLifeCycle mPlayerLifeCycle) {
         StepsViewModel.mPlayerLifeCycle = mPlayerLifeCycle;
+    }
+
+    public boolean isPrevStepEnable() {
+        return mCurrentStep.getValue() != null && mCurrentStep.getValue().getId() > 0;
+    }
+
+    public boolean isNextStepEnable() {
+        return (mCurrentStep.getValue() != null && mCurrentStep.getValue().getId() >= 0)
+                && (mStepList.getValue() != null
+                && (mCurrentStep.getValue().getId() < mStepList.getValue().size() - 1));
+    }
+
+    public void nextStep() {
+        if (stepsEventHandler != null) {
+            if (isNextStepEnable()) {
+                Step currentStep = mStepList.getValue().get(
+                        mCurrentStep.getValue().getId() + 1);
+                mCurrentStep.setValue(currentStep);
+            }
+        }
+    }
+
+    public void prevStep() {
+        if (stepsEventHandler != null) {
+            if (isPrevStepEnable()) {
+                Step currentStep = mStepList.getValue().get(
+                        mCurrentStep.getValue().getId() - 1);
+                mCurrentStep.setValue(currentStep);
+                //return currentStep;
+            }
+        }
+        //return null;
+    }
+
+    public void setStepsEventHandler(StepsEventHandler stepsEventHandler) {
+        this.stepsEventHandler = stepsEventHandler;
     }
 }

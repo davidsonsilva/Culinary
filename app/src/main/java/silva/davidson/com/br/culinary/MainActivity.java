@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
     private void setupViewModel() {
         final ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
         viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
+        viewModel.setLoadRecipeCallBack(this);
 
         viewModel.getRecipeMutableLiveData().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
@@ -142,7 +143,7 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
         Snackbar error = Snackbar.make(
                 mMainBinding.mainContainer,
                 t.getMessage(),
-                Snackbar.LENGTH_LONG)
+                Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.error_main_connection_action, this);
         ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
                 .setTextColor(getResources().getColor(android.R.color.holo_red_light));

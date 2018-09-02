@@ -1,13 +1,11 @@
 package silva.davidson.com.br.culinary.views.steps;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.databinding.BindingAdapter;
+import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -15,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -25,14 +23,16 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+
+import java.lang.ref.WeakReference;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.databinding.FragmentStepsDetailBinding;
 import silva.davidson.com.br.culinary.model.Step;
 import silva.davidson.com.br.culinary.viewModel.StepsViewModel;
 
-public class StepDetailFragment extends Fragment implements StepsViewModel.PlayerLifeCycle {
+public class StepDetailFragment extends Fragment implements StepsViewModel.PlayerLifeCycle,
+        StepsViewModel.StepsEventHandler {
 
     public static final String STEP_SELECTED = StepDetailFragment.class.getName().concat(".STEP_SELECTED");
     private static final String PLAYER_STATE = StepDetailFragment.class.getName().concat(".PLAYER_STATE");
@@ -45,7 +45,7 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     private MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
     private Long mPlayerPosition;
-    private Step mCurrentStep;
+
     public StepDetailFragment(){}
 
 
@@ -59,29 +59,68 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            if (getArguments().containsKey(STEP_SELECTED)) {
+                Step mCurrentStep = getArguments().getParcelable(STEP_SELECTED);
+                mViewModel.getCurrentStep().setValue(mCurrentStep);
+            }
+        }
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
-        mBinding.setViewModel(mViewModel);
         mViewModel.setPlayerLifeCycle(this);
+        mViewModel.setStepsEventHandler(this);
+
+        mBinding.setViewModel(mViewModel);
+        mBinding.setEventHandler(new WeakReference<StepsViewModel.StepsEventHandler>(this));
+
 
         if (getArguments() != null) {
             if (getArguments().containsKey(STEP_SELECTED)) {
-                mCurrentStep = getArguments().getParcelable(STEP_SELECTED);
+                Step mCurrentStep = getArguments().getParcelable(STEP_SELECTED);
                 mViewModel.getCurrentStep().setValue(mCurrentStep);
             }
         }
 
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(STEP_SELECTED)) {
-                mCurrentStep = savedInstanceState.getParcelable(STEP_SELECTED);
+                Step mCurrentStep = savedInstanceState.getParcelable(STEP_SELECTED);
                 mViewModel.getCurrentStep().setValue(mCurrentStep);
             }
             if (savedInstanceState.containsKey(PLAYER_STATE)) {
                 mPlayerPosition = savedInstanceState.getLong(PLAYER_STATE);
             }
         }
+
+        mViewModel.getCurrentStep().observe(this, new Observer<Step>() {
+            @Override
+            public void onChanged(@Nullable Step step) {
+                if (step != null) {
+/*                    Snackbar changed =
+                            Snackbar.make(mBinding.getRoot(),
+                                    "Step changed " + step.getId().toString(), Snackbar.LENGTH_SHORT);
+                    ((TextView) changed.getView().findViewById(android.support.design.R.id.snackbar_text))
+                            .setTextColor(getResources().getColor(android.R.color.white));
+                    changed.show();*/
+
+                    mBinding.setViewModel(mViewModel);
+                    mBinding.setEventHandler(new WeakReference<StepsViewModel.StepsEventHandler>(
+                            StepDetailFragment.this));
+
+                    //setupToolbar();
+                    releasePlayer();
+
+                }
+
+            }
+        });
 
         setupToolbar();
     }
@@ -123,6 +162,16 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
                 mPlayerPosition = null;
             }
         }
+    }
+
+    @Override
+    public void nextPositionClick() {
+        mViewModel.nextStep();
+    }
+
+    @Override
+    public void previousPositionClick() {
+        mViewModel.prevStep();
     }
 
     private class MyPlayerListener implements Player.EventListener {

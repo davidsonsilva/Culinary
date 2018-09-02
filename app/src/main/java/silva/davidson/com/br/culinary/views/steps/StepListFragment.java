@@ -47,7 +47,9 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity().getApplication());
         mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
+
         isRuningOnTabletView = mBinding.getRoot().findViewById(R.id.container_step_detail) != null;
+
         if (mSteps != null && getContext() != null) {
             mBinding.include.stepList.setLayoutManager(new LinearLayoutManager(getActivity()));
             mBinding.include.stepList.addItemDecoration(
@@ -55,6 +57,12 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
             mAdapter = new StepRecyclerViewAdapter(getActivity().getApplication(), this);
             mBinding.include.stepList.setAdapter(mAdapter);
             mViewModel.getStepList().setValue(mSteps);
+
+            if (isRuningOnTabletView) {
+                startStepDetailActivity(mSteps.get(0));
+            }
+
+
         }
 
         mViewModel.getStepList().observe(this, new Observer<List<Step>>() {
@@ -79,15 +87,6 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
     @Override
     public void onItemClick(Step step) {
-/*
-        Snackbar snackbar =
-        Snackbar.make(mBinding.getRoot(),
-                "Steps selected :" + step.getShortDescription(), Snackbar.LENGTH_LONG);
-        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
-        .setTextColor(getResources().getColor(android.R.color.white));
-        snackbar.show();
-*/
-
         startStepDetailActivity(step);
     }
 

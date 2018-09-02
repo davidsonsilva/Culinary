@@ -53,6 +53,7 @@ public class StepsDetailsActivity extends BaseActivity {
             }
 
             ArrayList<Step> steps = getIntent().getParcelableArrayListExtra(STEPS_RECORD);
+            mViewModel.getStepList().setValue(steps);
 
             mViewModel.getCurrentStep().setValue((Step)getIntent().getParcelableExtra(STEP_SELECTED));
 

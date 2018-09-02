@@ -17,4 +17,7 @@
     </string-array>
 
     <bool name="isRuningOnTablet">false</bool>
+
+    <string name="step_prev">prev step</string>
+    <string name="step_next">next step</string>
 </resources>

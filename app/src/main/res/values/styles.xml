@@ -15,6 +15,10 @@
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+
+        <item name="android:buttonStyle">@style/ButtonDefault</item>
+        <item name="android:borderlessButtonStyle">@style/FlatButton</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -91,6 +95,15 @@
         <item name="android:fontFamily">cursive</item>
         <item name="android:gravity">center</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="ButtonDefault" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="FlatButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>
