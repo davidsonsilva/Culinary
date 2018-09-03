@@ -8,12 +8,12 @@ import java.util.List;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.db.CulinaryDataBase;
-import silva.davidson.com.br.culinary.model.Recipe;
+import silva.davidson.com.br.culinary.model.Ingredient;
 
 public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context mContext;
-    private List<Recipe> mRecipes;
+    private List<Ingredient> mRecipesIgredients;
 
     public RecipeRemoteViewsFactory(Context context) {
         this.mContext = context;
@@ -26,25 +26,29 @@ public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
 
     @Override
     public void onDataSetChanged() {
-        mRecipes = CulinaryDataBase.getInstance(mContext.getApplicationContext()).recipeDAO().getAll();
+        mRecipesIgredients = CulinaryDataBase.getInstance(mContext.getApplicationContext()).ingredientDAO().getAll();
     }
 
     @Override
     public void onDestroy() {
-        mRecipes = null;
+        mRecipesIgredients = null;
     }
 
     @Override
     public int getCount() {
-        return mRecipes != null ? mRecipes.size() : 0;
+        return mRecipesIgredients != null ? mRecipesIgredients.size() : 0;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        Recipe recipe = mRecipes.get(position);
-        RemoteViews remoteVies = new RemoteViews(mContext.getPackageName(), R.layout.item_widget_recipe);
-        //TODO: Incluir os valores dos campos da tela do widget
-        remoteVies.setTextViewText(R.id.widget_recipe_title, recipe.getName());
+        Ingredient ingredient = mRecipesIgredients.get(position);
+        RemoteViews remoteVies = new RemoteViews(mContext.getPackageName(),
+                R.layout.item_widget_recipe_ingredient);
+        remoteVies.setTextViewText(R.id.widget_recipe_ingredient_title, ingredient.getIngredient());
+        remoteVies.setTextViewText(R.id.widget_recipe_ingredient_measure,
+                mContext.getString(R.string.recipe_ingredient_list_quantity,
+                        String.valueOf(ingredient.getQuantity()),
+                        ingredient.getMeasure()));
         return remoteVies;
     }
 

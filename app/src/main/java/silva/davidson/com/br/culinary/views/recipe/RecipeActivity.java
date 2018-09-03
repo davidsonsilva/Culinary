@@ -1,14 +1,23 @@
 package silva.davidson.com.br.culinary.views.recipe;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
 
 import silva.davidson.com.br.culinary.R;
+import silva.davidson.com.br.culinary.adapter.RecipeRecyclerViewAdapter;
 import silva.davidson.com.br.culinary.databinding.ActivityRecipeBinding;
+import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
+import silva.davidson.com.br.culinary.service.task.InsertWidgetRecipeTask;
+import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 import silva.davidson.com.br.culinary.views.BaseActivity;
 
 public class RecipeActivity extends BaseActivity {
@@ -17,6 +26,7 @@ public class RecipeActivity extends BaseActivity {
     private ActivityRecipeBinding mBinding;
     private Recipe mRecipe;
     private RecipeViewAdapter mAdapter;
+    private RecipeViewModel viewModel;
 
 
     public static void startActivity(BaseActivity activity, Bundle extras) {
@@ -31,19 +41,37 @@ public class RecipeActivity extends BaseActivity {
         setSupportActionBar(mBinding.recipeToolbar);
         mBinding.recipeToolbar.setTitleTextColor(getResources().getColor(R.color.text_primary));
 
+        setupViewModel();
+
         if(getIntent().getExtras() != null && getIntent().hasExtra(RECIPE_RECORD)) {
             mRecipe = getIntent().getParcelableExtra(RECIPE_RECORD);
-            mBinding.detailsPager.setAdapter(new RecipeViewAdapter(getSupportFragmentManager(),
-                    RecipeActivity.this, mRecipe));
-            mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
-
-            setupActionBar();
-
-            putBackGroundImage();
+            viewModel.getRecipe().setValue(mRecipe);
         } else {
             finish();
         }
 
+    }
+
+    private void setupViewModel() {
+        final ViewModelFactory factory = ViewModelFactory.getInstance(getApplication());
+        viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
+        viewModel.getRecipe().observe(this, new Observer<Recipe>() {
+            @Override
+            public void onChanged(@Nullable Recipe recipe) {
+
+                if (recipe != null) {
+
+                    mBinding.detailsPager.setAdapter(new RecipeViewAdapter(getSupportFragmentManager(),
+                            RecipeActivity.this, recipe));
+                    mBinding.detailsTab.setupWithViewPager(mBinding.detailsPager);
+
+                    setupActionBar();
+
+                    putBackGroundImage();
+
+                }
+            }
+        });
     }
 
     private void putBackGroundImage() {
@@ -82,5 +110,4 @@ public class RecipeActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

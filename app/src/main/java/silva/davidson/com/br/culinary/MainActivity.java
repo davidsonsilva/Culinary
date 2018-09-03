@@ -26,7 +26,8 @@ import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 import silva.davidson.com.br.culinary.views.BaseActivity;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
 
-public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdapter.EventHandler
+public class MainActivity extends BaseActivity implements
+          RecipeRecyclerViewAdapter.EventHandler
         , View.OnClickListener
         , RecipeViewModel.LoadRecipeCallBack {
 
@@ -84,6 +85,8 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
         viewModel = ViewModelProviders.of(this, factory).get(RecipeViewModel.class);
         viewModel.setLoadRecipeCallBack(this);
 
+        mMainBinding.progressBar.setVisibility(View.VISIBLE);
+
         viewModel.getRecipeMutableLiveData().observe(this, new Observer<ArrayList<Recipe>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Recipe> recipes) {
@@ -119,12 +122,15 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
     private void showError() {
         mMainBinding.progressBar.setVisibility(View.GONE);
         mMainBinding.imageViewError.setVisibility(View.VISIBLE);
+        mMainBinding.imageViewError.setImageDrawable(
+                getResources().getDrawable(R.drawable.ic_wifi_off_foreground));
 
         Snackbar error = Snackbar.make(
                 mMainBinding.mainContainer,
                 R.string.conection_error,
                 Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.error_main_connection_action, this);
+                .setAction(R.string.error_main_connection_action, this)
+                .setActionTextColor(getResources().getColor(android.R.color.white));
         ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
                 .setTextColor(getResources().getColor(android.R.color.white));
 
@@ -151,9 +157,10 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
                 mMainBinding.mainContainer,
                 t.getMessage(),
                 Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.error_main_connection_action, this);
+                .setAction(R.string.error_main_connection_action, this)
+                .setActionTextColor(getResources().getColor(android.R.color.white));
         ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
-                .setTextColor(getResources().getColor(android.R.color.holo_red_light));
+                .setTextColor(getResources().getColor(android.R.color.white));
         error.show();
     }
 

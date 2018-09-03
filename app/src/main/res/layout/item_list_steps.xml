@@ -13,7 +13,8 @@
     <LinearLayout
         android:id="@+id/step_container"
         style="@style/ListStepsLayout"
-        android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.step)}">
+        android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.step)}"
+        android:tag="@string/tag_steps_list">
 
         <TextView
             android:id="@+id/textViewId"
