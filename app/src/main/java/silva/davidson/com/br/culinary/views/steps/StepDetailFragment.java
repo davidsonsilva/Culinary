@@ -270,15 +270,4 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
         mExoPlayer = null;
     }
 
-/*    @BindingAdapter("layout_height")
-    public static void setLayoutHeight(View view, boolean orientationLandscape) {
-        view.getLayoutParams().height = orientationLandscape ? RelativeLayout.LayoutParams.MATCH_PARENT : 600;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mBinding.setOrientationLandscape(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
-    }*/
-
 }

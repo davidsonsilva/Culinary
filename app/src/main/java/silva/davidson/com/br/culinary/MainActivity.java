@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import silva.davidson.com.br.culinary.adapter.RecipeRecyclerViewAdapter;
 import silva.davidson.com.br.culinary.databinding.ActivityMainBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
+import silva.davidson.com.br.culinary.test.SimpleIdlingResource;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 import silva.davidson.com.br.culinary.views.BaseActivity;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
@@ -32,6 +36,7 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
     private RecipeRecyclerViewAdapter adapter;
     private ArrayList<Recipe> mRecipes;
     private RecipeViewModel viewModel;
+    private SimpleIdlingResource mIdlingResource;
 
     public static void startActivity(BaseActivity activity) {
         activity.startActivity(
@@ -45,6 +50,8 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
 
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mMainBinding.mainToolbar);
+        //For test
+        mIdlingResource = new SimpleIdlingResource();
 
         int spanCount = 1;
         if (getResources().getBoolean(R.bool.isRuningOnTablet)) {
@@ -148,5 +155,11 @@ public class MainActivity extends BaseActivity implements RecipeRecyclerViewAdap
         ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
                 .setTextColor(getResources().getColor(android.R.color.holo_red_light));
         error.show();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        return mIdlingResource;
     }
 }
