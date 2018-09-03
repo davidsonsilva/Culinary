@@ -75,7 +75,7 @@
             android:src="@drawable/ic_widget_white_24dp"
             app:layout_anchor="@id/details_pager"
             app:layout_anchorGravity="bottom|end"
-            app:layout_behavior="silva.davidson.com.br.culinary.utils.ScrollAwareFabBehavior" />
+            app:layout_behavior=".ScrollAwareFabBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

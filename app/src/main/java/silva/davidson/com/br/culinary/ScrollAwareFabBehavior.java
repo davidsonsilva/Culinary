@@ -1,4 +1,4 @@
-package silva.davidson.com.br.culinary.utils;
+package silva.davidson.com.br.culinary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

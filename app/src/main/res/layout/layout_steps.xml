@@ -10,5 +10,6 @@
             android:layout_marginBottom="8dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:context=".views.recipe.RecipeActivity"
-            tools:listitem="@layout/item_list_steps" />
+            tools:listitem="@layout/item_list_steps"
+            android:tag="@string/tag_steps_list"/>
 </layout>
