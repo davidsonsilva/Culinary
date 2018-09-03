@@ -31,11 +31,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -146,7 +143,7 @@ public class RecipeNavigationTest {
         ViewInteraction nextButton = onView(
                 allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
-        prevButton.check(matches(isDisplayed()));
+        nextButton.check(matches(isDisplayed()));
 
         // click 'Next Step'
         ViewInteraction appCompatButtonStep2 = onView(
