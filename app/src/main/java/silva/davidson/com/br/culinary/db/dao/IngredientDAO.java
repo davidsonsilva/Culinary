@@ -11,8 +11,9 @@ import silva.davidson.com.br.culinary.model.Ingredient;
 
 @Dao
 public interface IngredientDAO {
+
     @Query("SELECT * FROM ingredient")
-    LiveData<List<Ingredient>> getAll();
+    List<Ingredient> getAll();
 
     @Insert
     void insertAll(List<Ingredient> ingredients);

@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_culinary_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".SplashScreenActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -37,10 +38,25 @@
 
         <activity android:name=".views.steps.StepsDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".views.recipe.RecipeActivity"/>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="silva.davidson.com.br.culinary.views.recipe.RecipeActivity"/>
+            android:parentActivityName=".views.recipe.RecipeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="silva.davidson.com.br.culinary.views.recipe.RecipeActivity"/>
+        </activity>
+
+        <receiver android:name=".views.widget.RecipesWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipes_widget_provider_info" />
+        </receiver>
+
+        <service android:name=".views.widget.ListWidgetFactoryService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
     </application>
 
 </manifest>

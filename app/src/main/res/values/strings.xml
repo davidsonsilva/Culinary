@@ -20,4 +20,10 @@
 
     <string name="step_prev">prev step</string>
     <string name="step_next">next step</string>
+
+    <string name="widget_tittle">Culinary</string>
+    <string name="click_to_view_all_recipes">Click to view all recipes</string>
+
 </resources>
+
+
