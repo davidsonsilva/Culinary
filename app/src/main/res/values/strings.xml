@@ -26,6 +26,8 @@
 
     <string name="recipe_ingredient_list_quantity">%1$s %2$s</string>
     <string name="tag_steps_list">STEPS_LIST</string>
+    <string name="add_recipe_widget_error">Error to add widget recipe !</string>
+    <string name="add_recipe_widget_sucsses">Recipe added to your widget !</string>
 
 </resources>
 
