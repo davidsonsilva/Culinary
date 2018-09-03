@@ -65,25 +65,6 @@ public class RecipeNavigationTest {
         onView(ViewMatchers.withId(R.id.recipe_list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        /*// go to ingredients tab
-        ViewInteraction tabView = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.details_tab),
-                                0),
-                        1),
-                        isDisplayed()));
-        tabView.perform(click());
-
-        // verify if ingredients list is created
-        ViewInteraction layoutIngredients = onView(
-                allOf(childAtPosition(
-                        allOf(withId(R.id.ingredients_list),
-                                withParent(withId(R.id.details_pager))),
-                        0),
-                        isDisplayed()));
-        layoutIngredients.check(matches(isDisplayed()));*/
-
         ViewInteraction tabViewSteps = onView(
                 allOf(childAtPosition(
                         childAtPosition(
@@ -133,6 +114,16 @@ public class RecipeNavigationTest {
                         isDisplayed()));
         appCompatButton.perform(click());
 
+        ///Recipe "Starting prep"
+        ViewInteraction textViewStepOne = onView(
+                allOf(withText("Starting prep"),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepOne.check(matches(withText("Starting prep")));
+
         // verify if 'Prev Step' button is Enabled
         ViewInteraction prevButton = onView(
                 allOf(withId(R.id.step_navigation_prev_action),
@@ -150,6 +141,16 @@ public class RecipeNavigationTest {
                 allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButtonStep2.perform(click());
+
+        // Recipe "Press the crust into baking form."
+        ViewInteraction textViewStepThree = onView(
+                allOf(withText("Prep the cookie crust."),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepThree.check(matches(withText("Prep the cookie crust.")));
 
         // verify if 'Prev Step' button is enabled
         ViewInteraction buttonPrevStep3 = onView(
@@ -169,11 +170,31 @@ public class RecipeNavigationTest {
                         isDisplayed()));
         appCompatButtonStep3.perform(click());
 
+        // Recipe "Press the crust into baking form."
+        ViewInteraction textViewStepFour = onView(
+                allOf(withText("Press the crust into baking form."),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepFour.check(matches(withText("Press the crust into baking form.")));
+
         // click 'Next Step'
         ViewInteraction appCompatButtonStep4 = onView(
                 allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButtonStep4.perform(click());
+
+        // Recipe "Start filling prep"
+        ViewInteraction textViewStepFive = onView(
+                allOf(withText("Start filling prep"),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepFive.check(matches(withText("Start filling prep")));
 
         // click 'Next Step'
         ViewInteraction appCompatButtonStep5 = onView(
@@ -181,11 +202,31 @@ public class RecipeNavigationTest {
                         isDisplayed()));
         appCompatButtonStep5.perform(click());
 
+        // Recipe "Finish filling prep"
+        ViewInteraction textViewStepSix = onView(
+                allOf(withText("Finish filling prep"),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepSix.check(matches(withText("Finish filling prep")));
+
         // click 'Next Step' and reach last step of current recipe
         ViewInteraction appCompatButtonStep6 = onView(
                 allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButtonStep6.perform(click());
+
+        // Recipe "Finishing Steps"
+        ViewInteraction textViewStepSeven = onView(
+                allOf(withText("Finishing Steps"),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar_step_detail),
+                                        isDescendantOfA(withId(R.id.app_bar_step_detail))),
+                                0),
+                        isDisplayed()));
+        textViewStepSeven.check(matches(withText("Finishing Steps")));
 
         // verify if 'Prev Step' button is enabled
         ViewInteraction lastPrevButton = onView(

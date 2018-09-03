@@ -103,18 +103,12 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
             @Override
             public void onChanged(@Nullable Step step) {
                 if (step != null) {
-/*                    Snackbar changed =
-                            Snackbar.make(mBinding.getRoot(),
-                                    "Step changed " + step.getId().toString(), Snackbar.LENGTH_SHORT);
-                    ((TextView) changed.getView().findViewById(android.support.design.R.id.snackbar_text))
-                            .setTextColor(getResources().getColor(android.R.color.white));
-                    changed.show();*/
 
                     mBinding.setViewModel(mViewModel);
                     mBinding.setEventHandler(new WeakReference<StepsViewModel.StepsEventHandler>(
                             StepDetailFragment.this));
 
-                    //setupToolbar();
+                    setupToolbar();
                     releasePlayer();
 
                 }
