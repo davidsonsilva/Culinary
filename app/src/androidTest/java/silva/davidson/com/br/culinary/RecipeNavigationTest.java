@@ -7,6 +7,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.AccessibilityChecks;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
@@ -36,6 +37,7 @@ import static org.hamcrest.Matchers.allOf;
 
 
 @RunWith(AndroidJUnit4.class)
+@LargeTest
 public class RecipeNavigationTest {
 
     private IdlingResource mIdlingResource;

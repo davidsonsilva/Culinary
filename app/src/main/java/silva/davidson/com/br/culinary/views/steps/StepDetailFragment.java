@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -74,7 +72,7 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
+        if(getActivity() != null) mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
         mViewModel.setPlayerLifeCycle(this);
         mViewModel.setStepsEventHandler(this);
 
