@@ -35,15 +35,6 @@ public class RecipesWidgetProvider extends AppWidgetProvider {
                          final AppWidgetManager appWidgetManager,
                          final int[] appWidgetIds) {
         new SelectWidgetRecipeTaks(context, new SelectWidgetRecipeTaks.SelectRecipeCallBack() {
-            /*@Override
-            public void onSelect(List<Recipe> recipe) {
-                for (int appWidgetId : appWidgetIds) {
-                    for(Recipe r : recipe) {
-                        updateAppWidget(context, appWidgetManager, appWidgetId, r);
-                    }
-                }
-            }*/
-
             @Override
             public void onSelect(Recipe recipe) {
                 for (int appWidgetId : appWidgetIds) {

@@ -2,21 +2,13 @@ package silva.davidson.com.br.culinary.service.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import silva.davidson.com.br.culinary.db.CulinaryDataBase;
 import silva.davidson.com.br.culinary.model.Ingredient;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.model.Step;
-import silva.davidson.com.br.culinary.service.BackingService;
 
 public class SelectWidgetRecipeTaks extends AsyncTask<Void, Void, Recipe> {
 
