@@ -60,7 +60,9 @@ public class StepsViewModel extends AndroidViewModel {
     }
 
     public String getStepId(){
-        return getStep().getValue().getId().toString();
+        if (getStep().getValue() != null) {
+            return getStep().getValue().getId().toString();
+        } else return "";
     }
 
     public MutableLiveData<Step> getCurrentStep() {
@@ -161,13 +163,11 @@ public class StepsViewModel extends AndroidViewModel {
                 Step currentStep = mStepList.getValue().get(
                         mCurrentStep.getValue().getId() - 1);
                 mCurrentStep.setValue(currentStep);
-                //return currentStep;
             }
         }
-        //return null;
     }
 
-    public void setStepsEventHandler(StepsEventHandler stepsEventHandler) {
+    public void setStepsEventHandler(@Nullable StepsEventHandler stepsEventHandler) {
         this.stepsEventHandler = stepsEventHandler;
     }
 }

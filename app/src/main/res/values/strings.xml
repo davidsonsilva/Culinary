@@ -16,7 +16,7 @@
         <item>Ingredients</item>
     </string-array>
 
-    <bool name="isRuningOnTablet">false</bool>
+    <bool name="isRunningOnTablet">false</bool>
 
     <string name="step_prev">prev step</string>
     <string name="step_next">next step</string>
@@ -26,6 +26,9 @@
 
     <string name="recipe_ingredient_list_quantity">%1$s %2$s</string>
     <string name="tag_steps_list">STEPS_LIST</string>
+    <string name="image_error">imageError</string>
+    <string name="avatar_icon">avatar_icon</string>
+    <string name="media_image">media_image</string>
 
 </resources>
 

@@ -69,15 +69,17 @@ public class RecipeViewModel extends AndroidViewModel {
     }
 
     public String getIngredientValue(){
-        return String.format("%s" , getRecipe().getValue().getIngredients().size());
+        return String.format("%s" , getRecipe().getValue() != null ?
+                getRecipe().getValue().getIngredients().size() : "");
     }
 
     public String getStepsValue(){
-        return String.format("%s" , getRecipe().getValue().getSteps().size());
+        return String.format("%s" , getRecipe().getValue()!= null ?
+                getRecipe().getValue().getSteps().size() : "");
     }
 
     public String getServingValue(){
-        return String.format("%s" ,getRecipe().getValue().getServings());
+        return String.format("%s" , getRecipe().getValue() != null ? getRecipe().getValue().getServings() : "");
     }
 
     public int setRoundIcon(String recipeValue) {

@@ -35,8 +35,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
     private ArrayList<Step> mSteps;
     private StepRecyclerViewAdapter mAdapter;
     private FragmentStepsBinding mBinding;
-    private StepsViewModel mViewModel;
-    private boolean isRuningOnTabletView;
+    private boolean isRunningOnTabletView;
 
     @Nullable
     @Override
@@ -46,9 +45,9 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
                 false);
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity().getApplication());
-        mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
+        StepsViewModel mViewModel = ViewModelProviders.of(this, factory).get(StepsViewModel.class);
 
-        isRuningOnTabletView = mBinding.getRoot().findViewById(R.id.container_step_detail) != null;
+        isRunningOnTabletView = mBinding.getRoot().findViewById(R.id.container_step_detail) != null;
 
         if (mSteps != null && getContext() != null) {
             mBinding.include.stepList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -58,7 +57,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
             mBinding.include.stepList.setAdapter(mAdapter);
             mViewModel.getStepList().setValue(mSteps);
 
-            if (isRuningOnTabletView) {
+            if (isRunningOnTabletView) {
                 startStepDetailActivity(mSteps.get(0));
             }
 
@@ -92,7 +91,7 @@ public class StepListFragment extends Fragment implements StepRecyclerViewAdapte
 
     private void startStepDetailActivity(Step step){
 
-        if (isRuningOnTabletView) {
+        if (isRunningOnTabletView) {
             Bundle arguments = new Bundle();
             arguments.putParcelable(StepDetailFragment.STEP_SELECTED, step);
             StepDetailFragment fragment =  new StepDetailFragment();

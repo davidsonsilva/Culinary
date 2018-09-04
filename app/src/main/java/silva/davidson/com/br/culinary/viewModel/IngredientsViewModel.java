@@ -27,6 +27,6 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public String getQuantityValue(){
-        return mIngredients.getValue().getQuantity().toString();
+        return mIngredients.getValue() != null ? mIngredients.getValue().getQuantity().toString() : "";
     }
 }

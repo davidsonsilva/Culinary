@@ -18,12 +18,12 @@ import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.model.Step;
 import silva.davidson.com.br.culinary.service.BackingService;
 
-public class SelectWidgetRecipeTaks extends AsyncTask<Void, Void, Recipe> {
+public class SelectWidgetRecipeTask extends AsyncTask<Void, Void, Recipe> {
 
     private final CulinaryDataBase mDb;
     private final SelectRecipeCallBack mCallBack;
 
-    public SelectWidgetRecipeTaks(Context context, SelectRecipeCallBack callBack) {
+    public SelectWidgetRecipeTask(Context context, SelectRecipeCallBack callBack) {
         this.mDb = CulinaryDataBase.getInstance(context);
         this.mCallBack = callBack;
     }

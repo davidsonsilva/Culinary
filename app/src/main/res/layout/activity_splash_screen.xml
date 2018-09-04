@@ -12,6 +12,7 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
+        android:contentDescription="@string/avatar_icon"
         android:background="@android:color/transparent"
         app:srcCompat="@mipmap/ic_culinary" />
 

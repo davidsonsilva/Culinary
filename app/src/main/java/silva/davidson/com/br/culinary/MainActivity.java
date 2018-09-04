@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements
         mIdlingResource = new SimpleIdlingResource();
 
         int spanCount = 1;
-        if (getResources().getBoolean(R.bool.isRuningOnTablet)) {
+        if (getResources().getBoolean(R.bool.isRunningOnTablet)) {
             spanCount = 3;
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             spanCount = 2;

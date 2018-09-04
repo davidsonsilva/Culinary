@@ -13,7 +13,7 @@ import silva.davidson.com.br.culinary.model.Ingredient;
 public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context mContext;
-    private List<Ingredient> mRecipesIgredients;
+    private List<Ingredient> mRecipesIngredients;
 
     public RecipeRemoteViewsFactory(Context context) {
         this.mContext = context;
@@ -26,22 +26,22 @@ public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
 
     @Override
     public void onDataSetChanged() {
-        mRecipesIgredients = CulinaryDataBase.getInstance(mContext.getApplicationContext()).ingredientDAO().getAll();
+        mRecipesIngredients = CulinaryDataBase.getInstance(mContext.getApplicationContext()).ingredientDAO().getAll();
     }
 
     @Override
     public void onDestroy() {
-        mRecipesIgredients = null;
+        mRecipesIngredients = null;
     }
 
     @Override
     public int getCount() {
-        return mRecipesIgredients != null ? mRecipesIgredients.size() : 0;
+        return mRecipesIngredients != null ? mRecipesIngredients.size() : 0;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        Ingredient ingredient = mRecipesIgredients.get(position);
+        Ingredient ingredient = mRecipesIngredients.get(position);
         RemoteViews remoteVies = new RemoteViews(mContext.getPackageName(),
                 R.layout.item_widget_recipe_ingredient);
         remoteVies.setTextViewText(R.id.widget_recipe_ingredient_title, ingredient.getIngredient());

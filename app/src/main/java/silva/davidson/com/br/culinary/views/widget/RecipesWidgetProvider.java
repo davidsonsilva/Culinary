@@ -9,12 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
-import java.util.List;
-
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.SplashScreenActivity;
 import silva.davidson.com.br.culinary.model.Recipe;
-import silva.davidson.com.br.culinary.service.task.SelectWidgetRecipeTaks;
+import silva.davidson.com.br.culinary.service.task.SelectWidgetRecipeTask;
 import silva.davidson.com.br.culinary.views.recipe.RecipeActivity;
 
 public class RecipesWidgetProvider extends AppWidgetProvider {
@@ -34,7 +32,7 @@ public class RecipesWidgetProvider extends AppWidgetProvider {
     public void onUpdate(final Context context,
                          final AppWidgetManager appWidgetManager,
                          final int[] appWidgetIds) {
-        new SelectWidgetRecipeTaks(context, new SelectWidgetRecipeTaks.SelectRecipeCallBack() {
+        new SelectWidgetRecipeTask(context, new SelectWidgetRecipeTask.SelectRecipeCallBack() {
             /*@Override
             public void onSelect(List<Recipe> recipe) {
                 for (int appWidgetId : appWidgetIds) {
