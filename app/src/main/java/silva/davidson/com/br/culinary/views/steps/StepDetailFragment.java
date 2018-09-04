@@ -53,6 +53,8 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps_detail, container,
                 false);
+        if(getActivity() != null)
+            mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
         return mBinding.getRoot();
     }
 
@@ -63,7 +65,9 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
         if (getArguments() != null) {
             if (getArguments().containsKey(STEP_SELECTED)) {
                 Step mCurrentStep = getArguments().getParcelable(STEP_SELECTED);
-                mViewModel.getCurrentStep().setValue(mCurrentStep);
+                if (mViewModel != null){
+                    mViewModel.getCurrentStep().setValue(mCurrentStep);
+                }
             }
         }
     }
@@ -72,7 +76,9 @@ public class StepDetailFragment extends Fragment implements StepsViewModel.Playe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(getActivity() != null) mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
+        if(getActivity() != null && mViewModel == null)
+            mViewModel = StepsDetailsActivity.obtainViewModel(getActivity());
+
         mViewModel.setPlayerLifeCycle(this);
         mViewModel.setStepsEventHandler(this);
 
