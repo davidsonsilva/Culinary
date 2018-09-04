@@ -6,26 +6,27 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 
 import silva.davidson.com.br.culinary.R;
-import silva.davidson.com.br.culinary.adapter.RecipeRecyclerViewAdapter;
 import silva.davidson.com.br.culinary.databinding.ActivityRecipeBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.service.task.InsertWidgetRecipeTask;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 import silva.davidson.com.br.culinary.views.BaseActivity;
+import silva.davidson.com.br.culinary.views.widget.RecipesWidgetProvider;
 
-public class RecipeActivity extends BaseActivity {
+public class RecipeActivity extends BaseActivity implements
+        InsertWidgetRecipeTask.InsertRecipeCallBack, View.OnClickListener {
 
     public static final String RECIPE_RECORD =  RecipeActivity.class.getName().concat(".RECIPE_RECORD");
     private ActivityRecipeBinding mBinding;
     private Recipe mRecipe;
-    private RecipeViewAdapter mAdapter;
     private RecipeViewModel viewModel;
 
 
@@ -49,6 +50,32 @@ public class RecipeActivity extends BaseActivity {
         } else {
             finish();
         }
+
+        mBinding.fabButtonWidget.setOnClickListener(this);
+
+        mBinding.detailsTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        mBinding.fabButtonWidget.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        mBinding.fabButtonWidget.setVisibility(View.GONE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
@@ -108,6 +135,31 @@ public class RecipeActivity extends BaseActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onInsert(Recipe recipe) {
+        if (recipe != null) {
+            RecipesWidgetProvider.update(this);
+            Snackbar saved = Snackbar.make(mBinding.getRoot(), getString(R.string.add_recipe_widget_success)
+                    , Snackbar.LENGTH_SHORT);
+            ((TextView) saved.getView().findViewById(android.support.design.R.id.snackbar_text))
+                    .setTextColor(getResources().getColor(android.R.color.white));
+            saved.show();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(mRecipe != null) {
+            new InsertWidgetRecipeTask(getApplicationContext(), this).execute(mRecipe);
+        } else {
+            Snackbar error = Snackbar.make(mBinding.getRoot(), getString(R.string.add_recipe_widget_error)
+            , Snackbar.LENGTH_SHORT);
+            ((TextView) error.getView().findViewById(android.support.design.R.id.snackbar_text))
+                .setTextColor(getResources().getColor(android.R.color.white));
+            error.show();
         }
     }
 }

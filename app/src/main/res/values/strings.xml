@@ -7,7 +7,7 @@
     <string name="text_view_description">Recipe Introduction</string>
     <string name="text_view_id">0</string>
     <string name="text_tool_step_description">1. Preheat the oven to 350°F. Butter a 9 deep dish pie pan.</string>
-    <string name="conection_error">No internet connection, please verify!</string>
+    <string name="connection_error">No internet connection, please verify!</string>
     <string name="error_main_connection_action">RETRY</string>
 
     <!--Recipe Activity - TABS-->
@@ -18,15 +18,18 @@
 
     <bool name="isRunningOnTablet">false</bool>
 
-    <string name="step_prev">prev step</string>
-    <string name="step_next">next step</string>
+    <string name="step_prev">Previous Step</string>
+    <string name="step_next">Next Step</string>
 
     <string name="widget_tittle">Culinary</string>
     <string name="click_to_view_all_recipes">Click to view all recipes</string>
 
     <string name="recipe_ingredient_list_quantity">%1$s %2$s</string>
     <string name="tag_steps_list">STEPS_LIST</string>
-    <string name="image_error">imageError</string>
+    <string name="add_recipe_widget_error">Error to add widget recipe !</string>
+    <string name="add_recipe_widget_success">Recipe added to your widget !</string>
+
+    <string name="image_error">image_error</string>
     <string name="avatar_icon">avatar_icon</string>
     <string name="media_image">media_image</string>
 

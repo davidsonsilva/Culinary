@@ -18,7 +18,6 @@ import java.util.List;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.adapter.IngredientsRecyclerViewAdapter;
-import silva.davidson.com.br.culinary.adapter.StepRecyclerViewAdapter;
 import silva.davidson.com.br.culinary.databinding.FragmentIngredientsBinding;
 import silva.davidson.com.br.culinary.factory.ViewModelFactory;
 import silva.davidson.com.br.culinary.model.Ingredient;

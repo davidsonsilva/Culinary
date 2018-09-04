@@ -13,7 +13,6 @@ import java.util.List;
 
 import silva.davidson.com.br.culinary.R;
 import silva.davidson.com.br.culinary.databinding.ItemRecipeBinding;
-import silva.davidson.com.br.culinary.db.CulinaryDataBase;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.viewModel.RecipeViewModel;
 
@@ -68,7 +67,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         }
 
         public void binding(Recipe recipe){
-            viewModel = new RecipeViewModel(mContext, CulinaryDataBase.getInstance(mContext));
+            viewModel = new RecipeViewModel(mContext);
             viewModel.getRecipe().setValue(recipe);
             recipeBinding.setViewModel(viewModel);
             recipeBinding.avatarImage.setImageResource(viewModel.setRoundIcon(recipe.getName()));

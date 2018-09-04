@@ -38,7 +38,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(RecipeViewModel.class)) {
-            return (T) new RecipeViewModel(mApplication, mdb);
+            return (T) new RecipeViewModel(mApplication);
         } else if (modelClass.isAssignableFrom(StepsViewModel.class)) {
             return (T) new StepsViewModel(mApplication);
         } else if (modelClass.isAssignableFrom(IngredientsViewModel.class)) {

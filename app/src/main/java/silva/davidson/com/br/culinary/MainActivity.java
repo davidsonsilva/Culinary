@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity implements
 
         Snackbar error = Snackbar.make(
                 mMainBinding.mainContainer,
-                R.string.conection_error,
+                R.string.connection_error,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.error_main_connection_action, this)
                 .setActionTextColor(getResources().getColor(android.R.color.white));

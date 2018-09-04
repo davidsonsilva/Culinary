@@ -12,7 +12,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import silva.davidson.com.br.culinary.R;
-import silva.davidson.com.br.culinary.db.CulinaryDataBase;
 import silva.davidson.com.br.culinary.model.Recipe;
 import silva.davidson.com.br.culinary.service.BackingService;
 
@@ -22,18 +21,12 @@ public class RecipeViewModel extends AndroidViewModel {
         void onError(Throwable t);
     }
 
-    private static CulinaryDataBase mdb;
     private MutableLiveData<ArrayList<Recipe>> mRecipeMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Recipe> mRecipe = new MutableLiveData<>();
     private LoadRecipeCallBack loadRecipeCallBack;
 
-    private RecipeViewModel(@NonNull Application application) {
-        super(application);
-    }
-
-    public RecipeViewModel(Application mApplication, CulinaryDataBase db) {
+    public RecipeViewModel(Application mApplication) {
         super(mApplication);
-        mdb = db;
         loadRecipes();
     }
 

@@ -12,9 +12,9 @@ public class ScrollAwareFabBehavior extends FloatingActionButton.Behavior {
 
     private static final String TAG_STEPS_LIST = "STEPS_LIST";
 
-/*    public ScrollAwareFabBehavior(Context context, AttributeSet attrs) {
+    public ScrollAwareFabBehavior(Context context, AttributeSet attrs) {
          super();
-    }*/
+    }
 
     @Override
     public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout,
