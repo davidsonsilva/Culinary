@@ -25,14 +25,15 @@
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/exoplayer"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,16:9"
+            android:layout_height="250dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/imageViewThumbs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:resize_mode="fixed_height"
-            android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
-            app:videoUrl="@{viewModel.currentStep.videoURL}"/>
+            app:resize_mode="fill"
+            app:videoUrl="@{viewModel.currentStep.videoURL}" />
 
         <ImageView
             android:id="@+id/imageViewThumbs"
@@ -53,22 +54,25 @@
         <TextView
             android:id="@+id/textViewDescription"
             style="@style/TextViewListSteps"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@={viewModel.currentStep.description}"
-            android:textSize="24sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/step_navigation_layout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewThumbs"
+            app:layout_constraintTop_toBottomOf="@+id/exoplayer"
             tools:text="@string/text_tool_step_description" />
 
         <LinearLayout
             android:id="@+id/step_navigation_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="38dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:gravity="bottom"
