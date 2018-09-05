@@ -8,12 +8,12 @@ Users will download a list of recipes from a url using AsyncTask. Images for the
 
 ### Screenshots
 
-[SplashCreen]
-[Home]
-[Steps]
-[Ingredients]
-[Detail Steps]
-[Widget]
+[SplashCreen]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180829-160507.png)
+[Home]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180905-151047.png)
+[Steps]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180905-151054.png)
+[Ingredients]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180905-151057.png)
+[Steps Detail]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180905-151105.png)
+[Widget]:(https://github.com/davidsonsilva/Culinary/blob/master/Screenshot_20180905-151145.png)
 
 ## Built With
   * Room
